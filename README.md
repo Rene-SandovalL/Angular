@@ -1,4 +1,4 @@
-\# Prácticas de Angular
+# Prácticas de Angular
 
 
 
@@ -6,7 +6,7 @@ Este repositorio contiene la colección de prácticas, ejercicios y pequeños pr
 
 
 
-\## Requisitos Previos
+## Requisitos Previos
 
 
 
