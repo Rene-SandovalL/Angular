@@ -1,2 +1,43 @@
+<div>
+  <p>Nombre del Empleado: {{ nombre }}</p>
+  <p>Edad: {{ edad() }}</p>
+  @if (edad() >= 18) {
+    <p>Es mayor de edad</p>
+  } @else {
+    <p>Es menor de edad</p>
+  }
+  <p>Email: {{ email() }}</p>
+  <p>Sueldos: {{ sueldos()[1] }}, {{sueldos()[2]}}</p>
+  <p>La suma de los sueldos es: {{ sumaSueldosComputed() }}</p>
 
+  <button (click)="test()">Test</button>
+
+  <h2>Lista de articulos</h2>
+  <table>
+      <tr>
+        <th>Código</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+      </tr>
+      @for (articulo of articulos(); track articulo.codigo) {
+        <tr>
+          <td>{{ articulo.codigo }}</td>
+          <td>{{ articulo.descripcion }}</td>
+          <td>{{ articulo.precio }}</td>
+        </tr>
+      }
+  </table>
+  <h2>Numero aleatorio entre 1 y 3</h2>
+   @switch (generarNumero()) {
+     @case (1) {
+       <p>uno</p>
+     }
+     @case (2) {
+       <p>dos</p>
+     }
+     @case(3) {
+       <p>tres</p>
+     }
+   } 
+</div>
 <router-outlet />
