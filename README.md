@@ -1,4 +1,4 @@
-\# Prácticas de Angular
+# Prácticas de Angular
 
 
 
@@ -6,7 +6,7 @@ Este repositorio contiene la colección de prácticas, ejercicios y pequeños pr
 
 
 
-\## Requisitos Previos
+## Requisitos Previos
 
 
 
@@ -14,71 +14,71 @@ Para ejecutar estos proyectos necesitas tener instalado:
 
 
 
-1\.  \*\*Node.js\*\* (LTS recomendado)
+1.  **Node.js** (LTS recomendado)
 
-2\.  \*\*Angular CLI\*\*. Si no lo tienes, instálalo globalmente:
+2.  **Angular CLI**. Si no lo tienes, instálalo globalmente:
 
-&nbsp;   ```bash
+```bash
 
-&nbsp;   npm install -g @angular/cli
+npm install -g @angular/cli
 
-&nbsp;   ```
-
-
-
-\## Instalar y ejecutar un proyecto
+```
 
 
 
-Como cada práctica es independiente, debes instalar las dependencias \*\*dentro de la carpeta específica\*\* que quieras probar.
+## Instalar y ejecutar un proyecto
 
 
 
-1\.  \*\*Clona este repositorio:\*\*
+Como cada práctica es independiente, debes instalar las dependencias **dentro de la carpeta específica** que quieras probar.
 
-&nbsp;   ```bash
 
-&nbsp;   git clone <URL\_DE\_TU\_REPOSITORIO>
 
-&nbsp;   ```
+1.  **Clona este repositorio:**
+
+```bash
+
+git clone <URL\_DE\_TU\_REPOSITORIO>
+
+ ```
 
 
 
 2\.  \*\*Entra a la carpeta de la práctica\*\* (ejemplo con práctica-01):
 
-&nbsp;   ```bash
+```bash
 
-&nbsp;   cd practica-01-nombre
+cd practica-01-nombre
 
-&nbsp;   ```
-
-
-
-3\.  \*\*Instala las dependencias:\*\*
-
-&nbsp;   ```bash
-
-&nbsp;   npm install
-
-&nbsp;   ```
+ ```
 
 
 
-4\.  \*\*Ejecuta el servidor de desarrollo:\*\*
+3.  **Instala las dependencias:**
 
-&nbsp;   ```bash
+```bash
 
-&nbsp;   ng serve
+npm install
 
-&nbsp;   ```
-
-
-
-5\.  Abre tu navegador en `http://localhost:4200/`.
+```
 
 
 
-\* Estos proyectos son fines académicos.
+4.  **Ejecuta el servidor de desarrollo:**
+
+```bash
+
+ng serve
+
+```
+
+
+
+5.  Abre tu navegador en `http://localhost:4200/`.
+
+
+
+* Estos proyectos son fines académicos.
 
 ---
 
