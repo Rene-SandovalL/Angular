@@ -1,9 +1,14 @@
 import { Component, computed, signal } from '@angular/core';
+import { resetConsumerBeforeComputation } from '@angular/core/primitives/signals';
 import { RouterOutlet } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [
+    RouterOutlet,
+    CurrencyPipe
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -23,7 +28,11 @@ export class App {
     { codigo: 2, descripcion: 'manzanas', precio: 900 },
     { codigo: 3, descripcion: 'Peras', precio: 490 },
   ]);
-  
+
+  contador = signal<number>(1);
+  numeroAleatorio = signal<number>(this.generarNumero());
+  nombreSignal = signal<string>('');
+
   //Bien hecho
   sumaSueldosComputed = computed(() => {
     console.log("Suma sueldos computed");
@@ -48,6 +57,27 @@ export class App {
   generarNumero(): number {
     return Math.floor(Math.random() * 3) + 1;
   }
+
+  actualizarNumeroAleatorio(): void {
+    this.numeroAleatorio.set(this.generarNumero());
+  }
+
+  incrementar(): void {
+    this.contador.update( valorActual => valorActual + 1 );
+  }
+
+  decrementar(): void {
+    this.contador.update( valorActual => valorActual - 1 );
+  }
+
+  fijarNombre1(){
+    this.nombreSignal.set("Rene");
+  }
+
+  fijarNombre2(){
+    this.nombreSignal.set("Shalking");
+  }
+
 
 }
 

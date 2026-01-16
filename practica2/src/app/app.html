@@ -7,8 +7,8 @@
     <p>Es menor de edad</p>
   }
   <p>Email: {{ email() }}</p>
-  <p>Sueldos: {{ sueldos()[1] }}, {{sueldos()[2]}}</p>
-  <p>La suma de los sueldos es: {{ sumaSueldosComputed() }}</p>
+  <p>Sueldos: {{ sueldos()[1] | currency }}, {{sueldos()[2] | currency }}</p>
+  <p>La suma de los sueldos es: {{ sumaSueldosComputed() | currency }}</p>
 
   <button (click)="test()">Test</button>
 
@@ -23,12 +23,13 @@
         <tr>
           <td>{{ articulo.codigo }}</td>
           <td>{{ articulo.descripcion }}</td>
-          <td>{{ articulo.precio }}</td>
+          <td>{{ articulo.precio | currency}}</td>
         </tr>
       }
   </table>
   <h2>Numero aleatorio entre 1 y 3</h2>
-   @switch (generarNumero()) {
+  <button (click)="actualizarNumeroAleatorio()">Generar número aleatorio</button>
+   @switch (numeroAleatorio()) {
      @case (1) {
        <p>uno</p>
      }
@@ -38,6 +39,20 @@
      @case(3) {
        <p>tres</p>
      }
-   } 
+   }
+
+   <div>
+    <p> Contador: {{ contador() }} </p>
+    <button (click)="incrementar()"> Sumar 1</button>
+    <button (click)="decrementar()"> Restar 1</button>
+   </div>
+
+   <h1>Binding</h1>
+   <div>
+    <input type="button" (click)="fijarNombre1()" value="Rene"/>
+    <input type="button" (click)="fijarNombre2()" value="Shalking"/>
+   </div>
+   <!-- Binding: Se tienen que poner corchetes en lugar de llaves w, para los value w -->
+   <input type="text" [value]="nombreSignal()"/>
 </div>
 <router-outlet />
