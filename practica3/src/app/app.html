@@ -1,0 +1,17 @@
+<body>
+  <div style="text-align: center;">
+      <app-dado color="blue" color_letra="black"></app-dado>
+      <app-dado [color]="'red'" [color_letra]="'blue'"></app-dado>
+      <app-dado></app-dado>
+  </div>
+  <hr>
+  <div style="text-align: center;">
+    <h1>Cronometro morro w</h1>
+    <!-- El hijo manda el valor de multiplo de 10 por medio de un evento y se lo pasa al metodo actualizar -->
+    <app-cronometro [inicio]="15" (multiplo10)="actualizar($event)" #cronometro></app-cronometro>
+    <h2>Evento</h2>
+    <p> {{mensaje()}} </p>
+    <button (click)="reiniciar()">Reiniciar</button>
+  </div>
+</body>
+<router-outlet />
