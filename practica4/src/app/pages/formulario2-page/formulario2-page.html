@@ -1,1 +1,48 @@
-<p>formulario2-page works!</p>
+<!-- Formulario reactivo con FormGroup -->
+<h1>FormGroup - formulario reactivo</h1>
+<form [formGroup]="formularioContacto" (ngSubmit)="sumbit()">
+  <p>
+    Nombre: <input type="text" formControlName="nombre" placeholder="introduce un nombre"/><br>
+    @if(this.formularioContacto.get('nombre')?.errors?.['required']) {
+      <span style="color: red; font-size: 12px;">El nombre no puede quedar vacío</span>
+    }
+    @if(this.formularioContacto.get('nombre')?.errors?.['minlength']) {
+      <span style="color: red; font-size: 12px;">El nombre debe tener al menos 10 caracteres</span>
+    }
+  </p>
+  <p>
+    Sexo:
+    <input type="radio" formControlName="sexo" value="hombre"/> Hombre
+    <input type="radio" formControlName="sexo" value="mujer"/> Mujer
+  </p>
+  <p>
+    Mail: <input type="email" formControlName="mail" placeholder="introduce un mail"/><br>
+    @if(this.formularioContacto.get('mail')?.errors?.['required']) {
+      <span style="color: red; font-size: 12px;">El mail no puede quedar vacío</span>
+    }
+    @if(this.formularioContacto.get('mail')?.errors?.['email']) {
+      <span style="color: red; font-size: 12px;">El mail no es válido</span>
+    }
+  </p>
+  <div formGroupName="pasatiempos" justifyContent="center">
+    Pasatiempos: <br>
+    <input type="checkbox" formControlName="Leer"/> Leer <br>
+    <input type="checkbox" formControlName="Deportes"/> Deporte <br>
+    <input type="checkbox" formControlName="Musica"/> Música <br>
+    <input type="checkbox" formControlName="Videojuegos"/> Videojuegos <br>
+    <input type="checkbox" formControlName="Bailar"/> Bailar <br>
+  </div>
+  <p>
+    Mensaje: <br><br>
+    <textarea rows="10" cols="70" formControlName="mensaje" placeholder="mensaje"></textarea><br>
+    @if(this.formularioContacto.get('mensaje')?.errors?.['required']){
+      <span style="color: red; font-size: 12px;">El mensaje no puede quedar vacío</span>
+    }
+    @if(this.formularioContacto.get('mensaje')?.errors?.['maxlength']){
+      <span style="color: red; font-size: 12px;">El mensaje no puede tener más de 20 caracteres</span>
+    }
+  </p>
+  <button style="height: 30px;" type="submit">Enviar</button>
+</form>
+<br>
+<div> Datos: {{ datoa() }} </div>
