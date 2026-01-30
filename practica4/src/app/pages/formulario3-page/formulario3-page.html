@@ -1,1 +1,34 @@
-<p>formulario3-page works!</p>
+<form [formGroup]="formularioContacto"  (ngSubmit)="submit()">
+  <p>
+    Nombre: <input type="text" formControlName="nombre" placeholder="introduce un nombre"/><br>
+    @if(this.formularioContacto.get('nombre')?.errors?.['required']) {
+      <span style="color: red; font-size: 12px;">El nombre no puede quedar vacío</span>
+    }
+    @if(this.formularioContacto.get('nombre')?.errors?.['minlength']) {
+      <span style="color: red; font-size: 12px;">El nombre debe tener al menos 4 caracteres</span>
+    }
+  </p>
+  <p>
+     Mail: <input type="email" formControlName="mail" placeholder="introduce un mail"/><br>
+    @if(this.formularioContacto.get('mail')?.errors?.['required']) {
+      <span style="color: red; font-size: 12px;">El mail no puede quedar vacío</span>
+    }
+    @if(this.formularioContacto.get('mail')?.errors?.['email']) {
+      <span style="color: red; font-size: 12px;">El mail no es válido</span>
+    }
+  </p>
+    <p>
+    Mensaje: <br><br>
+    <textarea rows="10" cols="70" formControlName="mensajes" placeholder="mensaje"></textarea><br>
+    @if(this.formularioContacto.get('mensajes')?.errors?.['required']){
+      <span style="color: red; font-size: 12px;">El mensaje no puede quedar vacío</span>
+    }
+    @if(this.formularioContacto.get('mensajes')?.errors?.['maxlength']){
+      <span style="color: red; font-size: 12px;">El mensaje no puede tener más de 20 caracteres</span>
+    }
+  </p>
+  <br>
+  <button style="height: 30px;" type="submit">Enviar</button>
+  <p>Datos: {{ resultado() }}</p>
+
+</form>

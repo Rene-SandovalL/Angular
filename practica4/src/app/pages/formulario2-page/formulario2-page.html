@@ -24,13 +24,22 @@
       <span style="color: red; font-size: 12px;">El mail no es válido</span>
     }
   </p>
+  <p>
+    País:
+      <select formControlName="pais">
+        <option value="">Mexico</option>
+        <option value="">Canada</option>
+        <option value="">USA</option>
+      </select>
+
+  </p>
   <div formGroupName="pasatiempos" justifyContent="center">
     Pasatiempos: <br>
-    <input type="checkbox" formControlName="Leer"/> Leer <br>
-    <input type="checkbox" formControlName="Deportes"/> Deporte <br>
-    <input type="checkbox" formControlName="Musica"/> Música <br>
-    <input type="checkbox" formControlName="Videojuegos"/> Videojuegos <br>
-    <input type="checkbox" formControlName="Bailar"/> Bailar <br>
+    <input type="checkbox" formControlName="Leer"/> Leer
+    <input type="checkbox" formControlName="Deportes"/> Deporte
+    <input type="checkbox" formControlName="Musica"/> Música
+    <input type="checkbox" formControlName="Videojuegos"/> Videojuegos
+    <input type="checkbox" formControlName="Bailar"/> Bailar
   </div>
   <p>
     Mensaje: <br><br>

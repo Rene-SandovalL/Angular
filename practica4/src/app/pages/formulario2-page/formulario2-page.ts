@@ -16,6 +16,7 @@ export class Formulario2Page {
     nombre: new FormControl('',[Validators.required, Validators.minLength(10)]),
     sexo: new FormControl(''),
     mail: new FormControl('', [Validators.email, Validators.required]),
+    pais: new FormControl(''),
 
     pasatiempos: new FormGroup({
       Leer: new FormControl(false),
@@ -50,6 +51,7 @@ export class Formulario2Page {
       Nombre: ${this.formularioContacto.value.nombre},
       Sexo: ${this.formularioContacto.value.sexo},
       Mail: ${this.formularioContacto.value.mail},
+      pais: ${this.formularioContacto.value.pais},
       Pasatiempos: ${pasatiemposSeleccionados.join(' ') || 'Ninguno'},
       Mensaje: ${this.formularioContacto.value.mensaje}
 
