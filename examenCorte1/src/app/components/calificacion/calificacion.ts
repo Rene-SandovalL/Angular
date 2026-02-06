@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './calificacion.scss',
 })
 export class Calificacion {
-  
+
+  verificarCalificacion(calificacion: number): string {
+    return calificacion <= 6 ? 'red' : 'black';
+  }
+
 }

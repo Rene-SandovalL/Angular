@@ -29,7 +29,11 @@
         <br><span style="color: red;">La calificacion del corte 2 es requerida.</span>
       }
     </p>
-    <p>Corte 3 <input type="number" formControlName="corte3" min="0" max="10"></p>
+    <p>Corte 3 <input type="number" formControlName="corte3" min="0" max="10">
+    @if(this.formularioCalificacion.get('corte3')?.errors?.['required']) {
+        <br><span style="color: red;">La calificacion del corte 3 es requerida.</span>
+      }
+    </p>
 
     <button style="margin: 5px;" type="submit">Agregar</button>
     <button style="margin: 5px;" type="button" (click)="limpiarFormulario()">Limpiar</button>

@@ -1,5 +1,5 @@
 import { Component, inject, output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-agregar-calificacion',
@@ -12,6 +12,11 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 export class AgregarCalificacion {
   formularioCalificacion : FormGroup;
   alumnoNuevo = output<any>();
+  alumnoActualizado = output<{index: number, alumno: any}>();
+
+  // Variables para controlar el modo edición
+  modoEdicion = false;
+  indiceAlumnoEditando: number | null = null;
 
   private formBuilder = inject(FormBuilder);
 
@@ -25,7 +30,10 @@ export class AgregarCalificacion {
     });
   }
 
-  SeleccionarAlumno(alumno: any) {
+  SeleccionarAlumno(alumno: any, index: number) {
+    this.modoEdicion = true;
+    this.indiceAlumnoEditando = index;
+
     this.formularioCalificacion.patchValue({
       matricula: alumno.matricula,
       nombre: alumno.nombre,
@@ -36,6 +44,9 @@ export class AgregarCalificacion {
   }
 
   limpiarFormulario() {
+    this.modoEdicion = false;
+    this.indiceAlumnoEditando = null;
+
     this.formularioCalificacion.reset({
       matricula: '',
       nombre: '',
@@ -45,13 +56,18 @@ export class AgregarCalificacion {
     });
   }
 
-  actualizarAlumno(){
-
-  }
-
   submit(){
     if(this.formularioCalificacion.valid){
-      this.alumnoNuevo.emit(this.formularioCalificacion.value);
+      if(this.modoEdicion && this.indiceAlumnoEditando !== null){
+        // Está editando un alumno existente
+        this.alumnoActualizado.emit({
+          index: this.indiceAlumnoEditando,
+          alumno: this.formularioCalificacion.value
+        });
+      } else {
+        // Está agregando un alumno nuevo
+        this.alumnoNuevo.emit(this.formularioCalificacion.value);
+      }
       this.limpiarFormulario();
     }
   }
