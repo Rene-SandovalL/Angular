@@ -1,0 +1,28 @@
+<div class="calificaciones">
+  <table class="tabla-calificaciones">
+    <tr>
+      <th>Matricula</th>
+      <th>Nombre</th>
+      <th>Corte 1</th>
+      <th>Corte 2</th>
+      <th>Corte 3</th>
+      <th>Eliminar</th>
+      <th>Seleccionar</th>
+    </tr>
+    @for (alumno of alumnos(); track alumno.matricula; let i = $index) {
+      <tr>
+        <td>{{ alumno.matricula }}</td>
+        <td>{{ alumno.nombre }}</td>
+        <td>{{ alumno.corte1 }}</td>
+        <td>{{ alumno.corte2 }}</td>
+        <td>{{ alumno.corte3 }}</td>
+        <td><button (click)="eliminarAlumno(i)">Eliminar</button></td>
+        <td><button (click)="seleccionarAlumno(i)">Seleccionar</button></td>
+      </tr>
+    }
+  </table>
+<div>
+  <app-agregar-calificacion (alumnoNuevo)="agregarAlumno($event)"></app-agregar-calificacion>
+</div>
+</div>
+

@@ -1,0 +1,39 @@
+<div>
+  <h1>Captura de calificaciones</h1>
+
+  <form [formGroup]="formularioCalificacion" (ngSubmit)="submit()">
+    <p>Matricula <input type="text" formControlName="matricula">
+    @if(this.formularioCalificacion.get('matricula')?.invalid) {
+      <br><span style="color: red;">La matricula es requerida.</span>
+    }
+    @if(this.formularioCalificacion.get('matricula')?.errors?.['pattern']) {
+      <br><span style="color: red;">La matricula solo debe contener numeros.</span>
+    }
+    </p>
+
+    <p>Nombre <input type="text" formControlName="nombre">
+    @if(this.formularioCalificacion.get('nombre')?.invalid) {
+      <br><span style="color: red;">El nombre es requerido.</span>
+    }
+    </p>
+    <p>Corte 1 <input type="number" formControlName="corte1" min="0" max="10">
+    @if(this.formularioCalificacion.get('corte1')?.errors?.['required']) {
+        <br><span style="color: red;">La calificacion del corte 1 es requerida.</span>
+      }
+    @if(this.formularioCalificacion.get('corte1')?.errors?.['min'] || this.formularioCalificacion.get('corte1')?.errors?.['max']) {
+        <span style="color: red;">La calificacion del corte 1 debe estar entre 0 y 10.</span>
+      }
+    </p>
+    <p>Corte 2 <input type="number" formControlName="corte2" min="0" max="10">
+    @if(this.formularioCalificacion.get('corte2')?.errors?.['required']) {
+        <br><span style="color: red;">La calificacion del corte 2 es requerida.</span>
+      }
+    </p>
+    <p>Corte 3 <input type="number" formControlName="corte3" min="0" max="10"></p>
+
+    <button style="margin: 5px;" type="submit">Agregar</button>
+    <button style="margin: 5px;" type="button" (click)="limpiarFormulario()">Limpiar</button>
+
+
+  </form>
+</div>

@@ -1,0 +1,25 @@
+.calificaciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.tabla-calificaciones {
+  border: 2px solid black;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+
+  th, td {
+    border: 1px solid black;
+    padding: 8px 12px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+
+}
