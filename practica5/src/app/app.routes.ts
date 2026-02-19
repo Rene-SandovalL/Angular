@@ -13,8 +13,8 @@ export const routes: Routes = [
   },
   {
     path: 'home',
+    canActivate: [authGuard], 
     loadComponent: () => import('./pages/home/home').then(m => m.Home),
-    canActivate: [authGuard],
   },
   {
     path: '**',
