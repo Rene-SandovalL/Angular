@@ -1,1 +1,198 @@
-<p>home works!</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HELLYEAH con Jesús - ¡Fuego del Cielo!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" /><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.2"/></svg>') repeat;
+      color: #ffd700; /* Oro celestial */
+      font-family: 'Nosifer', 'Creepster', sans-serif;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: radial-gradient(circle at center, #002366 0%, #000 70%);
+      padding: 100px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%; right: -50%; bottom: -50%;
+      background: conic-gradient(from 0deg at 50% 50%, #ffd700, #ff4500, #ffd700, #002366, #ffd700);
+      animation: holy-spin 25s linear infinite;
+      opacity: 0.35;
+    }
+
+    @keyframes holy-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-size: 7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #ffd700;
+      text-shadow:
+        0 0 30px #ff4500,
+        0 0 60px #ffd700,
+        0 0 90px #ff4500,
+        8px 8px 0 #000,
+        -8px -8px 0 #000;
+      margin: 0;
+      animation: glory-glow 1.8s infinite alternate;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes glory-glow {
+      0% { text-shadow: 0 0 30px #ff4500, 0 0 60px #ffd700; }
+      100% { text-shadow: 0 0 80px #fff, 0 0 120px #ffd700, 0 0 160px #ff4500; }
+    }
+
+    .slogan {
+      font-size: 3.5rem;
+      color: #ff4500;
+      text-shadow: 0 0 40px #ffd700;
+      margin: 40px 0;
+      animation: pulse-holy 2.2s infinite;
+    }
+
+    @keyframes pulse-holy {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.9; }
+    }
+
+    main {
+      padding: 80px 20px;
+      background: linear-gradient(to bottom, #001133, #000);
+    }
+
+    .holy-section {
+      margin: 70px auto;
+      max-width: 1000px;
+      padding: 50px;
+      border: 10px double #ffd700;
+      box-shadow: inset 0 0 80px #ff4500, 0 0 100px #ffd70066;
+      position: relative;
+      background: rgba(0,0,20,0.7);
+    }
+
+    .holy-section::before,
+    .holy-section::after {
+      content: '✝️🔥✝️';
+      position: absolute;
+      font-size: 4rem;
+      color: #ffd70088;
+      opacity: 0.8;
+    }
+
+    .holy-section::before { top: -40px; left: 50%; transform: translateX(-50%); }
+    .holy-section::after  { bottom: -40px; left: 50%; transform: translateX(-50%); }
+
+    p {
+      font-size: 2rem;
+      line-height: 1.6;
+      text-shadow: 4px 4px 0 #002366;
+      color: #ffeeee;
+    }
+
+    .button-container {
+      margin: 100px 0;
+    }
+
+    .hellyeahbutton {
+      display: inline-block;
+      padding: 35px 90px;
+      font-family: 'Creepster', sans-serif;
+      font-size: 4rem;
+      text-transform: uppercase;
+      color: #000;
+      background: linear-gradient(45deg, #ffd700, #ff4500, #ffd700);
+      border: 12px solid #ff4500;
+      text-shadow: 0 0 20px #fff;
+      box-shadow:
+        0 0 70px #ffd700,
+        inset 0 0 50px #ff4500,
+        0 0 140px #ffd70088;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hellyeahbutton:hover {
+      transform: scale(1.2) rotate(4deg);
+      box-shadow: 0 0 150px #fff, inset 0 0 100px #ffd700;
+      border-color: #fff;
+      color: #ffd700;
+      text-shadow: 0 0 30px #ff4500;
+    }
+
+    .hellyeahbutton::before {
+      content: 'JESÚS HELLYEAH!';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.3em;
+      color: #000;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .hellyeahbutton:hover::before {
+      opacity: 1;
+    }
+
+    footer {
+      background: linear-gradient(to top, #002366, #ff4500);
+      padding: 50px;
+      font-size: 2.5rem;
+      color: #ffd700;
+      text-shadow: 3px 3px 0 #000;
+      border-top: 15px solid #ffd700;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>HELLYEAH JESÚS</h1>
+    <div class="slogan">¡FUEGO DEL CIELO! ✝️🔥🤘 ¡ALABANZA EXTREMA!</div>
+  </header>
+
+  <main>
+    <section class="holy-section">
+      <h2>¡BIENVENIDO AL FUEGO SANTO!</h2>
+      <p>Aquí levantamos las manos al cielo con todo el poder. Jesús reina, el Espíritu quema y gritamos HELLYEAH hasta que el infierno tiemble. ¡Gloria a Dios en lo más alto y desmadre santo en la tierra! 🔥✝️</p>
+    </section>
+
+    <section class="holy-section">
+      <h2>¿LISTO PARA ARDER EN SU PRESENCIA?</h2>
+      <p>Únete al movimiento de adoración brutal. Cruz que brilla, fuego que no consume, manos arriba y gritos de victoria eterna. ¡JESÚS HELLYEAH o no hay nada! ✝️🔥🤘</p>
+    </section>
+
+    <div class="button-container">
+      <button class="hellyeahbutton">¡HELLYEAH SEÑOR!</button>
+    </div>
+
+  </main>
+
+  <footer>
+    © 2026 HELLYEAH con JESÚS - ¡Que arda la alabanza! ✝️🔥
+  </footer>
+
+</body>
+</html>

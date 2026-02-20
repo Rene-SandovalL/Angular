@@ -16,10 +16,12 @@ export class AuthService {
     {id: 2, name: 'Maria', email: 'maria@upsin.edu.mx', password: 'maria123'},
   ]
 
-  private readonly _currentUser = signal<SessionUser | null>(null);
-  readonly isAuthenticated = computed(() => this._currentUser() !== null);
+    private readonly storageKey = 'session_user';
 
-  private readonly storageKey = 'session_user';
+
+  private readonly _currentUser = signal<SessionUser | null>(this.readFromStorage());
+  readonly currentUser = computed(() => this._currentUser());
+  readonly isAuthenticated = computed(() => this._currentUser() !== null);
 
 
   login(email: string, password: string) : boolean {
@@ -28,7 +30,7 @@ export class AuthService {
       u.password.toLowerCase() === password.toLowerCase().trim()
     );
 
-    if(!existe) return false
+    if(!existe) return false;
 
     const sessionUser : SessionUser = {
       id: existe.id,
@@ -39,19 +41,23 @@ export class AuthService {
     localStorage.setItem(this.storageKey, JSON.stringify(sessionUser));
 
     this._currentUser.set(sessionUser);
-    return true
+    return true;
   }
 
   readFromStorage(): SessionUser | null {
-    const user = localStorage.getItem('session_user');
+    const user = localStorage.getItem(this.storageKey);
     if (!user) return null;
 
     try {
       return JSON.parse(user) as SessionUser;
-    }catch(e) {
+    }catch {
       localStorage.removeItem(this.storageKey);
-      console.error('Error parsing session user from localStorage:', e);
       return null;
     }
+  }
+
+  logout(): void {
+    this._currentUser.set(null);
+    localStorage.removeItem(this.storageKey);
   }
 }
