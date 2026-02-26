@@ -1,0 +1,78 @@
+.sidebar-nav {
+  padding: 10px 0;
+
+  .nav-item {
+    margin: 0;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 15px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      padding-left: 25px;
+    }
+
+    &.active {
+      background-color: rgba(0, 123, 255, 0.1);
+      border-left-color: #007bff;
+      color: #007bff;
+      font-weight: 600;
+    }
+  }
+
+  mat-accordion {
+    margin-top: 5px;
+  }
+
+  mat-expansion-panel {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  ::ng-deep {
+    .mat-expansion-panel-header {
+      padding: 15px 20px !important;
+      font-size: 16px;
+      font-weight: 500;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05) !important;
+      }
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0 !important;
+    }
+
+    .mat-expansion-panel-content {
+      background: transparent;
+    }
+  }
+
+  .submenu {
+    display: flex;
+    flex-direction: column;
+
+    .submenu-link {
+      padding-left: 40px;
+      font-size: 15px;
+
+      &:hover {
+        padding-left: 45px;
+      }
+    }
+  }
+}

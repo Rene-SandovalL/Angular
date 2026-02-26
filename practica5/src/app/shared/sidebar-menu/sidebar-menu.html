@@ -1,0 +1,21 @@
+<nav class="sidebar-nav">
+  <div class="nav-item">
+    <a routerLink="/home" routerLinkActive="active" class="nav-link">
+      Home
+    </a>
+  </div>
+
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Académico</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="submenu">
+        <a routerLink="/alumnos" class="nav-link submenu-link">Alumnos</a>
+        <a routerLink="/calificaciones" class="nav-link submenu-link">Calificaciones</a>
+        <a class="nav-link submenu-link">Maestros</a>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</nav>

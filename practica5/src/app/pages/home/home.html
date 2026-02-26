@@ -169,7 +169,7 @@
 <body>
 
   <header>
-    <h1>HELLYEAH JESÚS</h1>
+    <h1>HELLYEAH JESÚS - BIENVENIDO, {{ auth.currentUser()?.name}}</h1>
     <div class="slogan">¡FUEGO DEL CIELO! ✝️🔥🤘 ¡ALABANZA EXTREMA!</div>
   </header>
 
@@ -185,14 +185,9 @@
     </section>
 
     <div class="button-container">
-      <button class="hellyeahbutton">¡HELLYEAH SEÑOR!</button>
+      <button class="hellyeahbutton" (click)="logout()">Cerrar sesión</button>
     </div>
 
   </main>
-
-  <footer>
-    © 2026 HELLYEAH con JESÚS - ¡Que arda la alabanza! ✝️🔥
-  </footer>
-
 </body>
 </html>
