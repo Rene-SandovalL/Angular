@@ -1,5 +1,12 @@
 <mat-toolbar>
     <span class="spacer">Title</span>
-      <div class="avatar">{{ iniciales() }}</div>
+    <button matButton [matMenuTriggerFor]="menu">
+      <span class="avatar">{{ iniciales() }}</span>
+    </button>
 </mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <button disabled="true" mat-menu-item> <mat-icon class="mat-18">person</mat-icon> {{auth.currentUser()?.name}}</button>
+  <button mat-menu-item (click)="logout()"><mat-icon class="mat-18">logout</mat-icon> Cerrar sesión</button>
+</mat-menu>
 

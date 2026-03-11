@@ -29,9 +29,12 @@
           />
         </div>
       </div>
+      @if(this.loginForm.get('email')?.invalid) {
+        <span style="color: red; font-size: 0.9rem;">Por favor ingresa un correo valido</span>
+      }
 
       <div class="field-group">
-        <label for="password">Contrasena</label>
+        <label for="password">Contraseña</label>
         <div class="input-wrapper">
           <span class="input-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
@@ -41,16 +44,17 @@
           </span>
           <input
             id="password"
-            type="password"
+            [type]="showPassword() ? 'text' : 'password'"
             placeholder="********"
             autocomplete="current-password"
             formControlName="password"
           />
+
           <button
             type="button"
             class="toggle-password"
             aria-label="Mostrar u ocultar contrasena"
-            (submit)="onSubmit()"
+            (click)="togglePassword()"
           >
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" stroke="currentColor" stroke-width="1.8"/>
@@ -59,16 +63,24 @@
           </button>
         </div>
       </div>
+            @if(this.loginForm.get('password')?.invalid) {
+            <span style="color: red; font-size: 0.9rem;">La contraseña debe tener al menos 6 caracteres</span>
+      }
 
       <div class="options-row">
+
         <label class="checkbox-row">
           <input type="checkbox" />
+
           <span>Recordarme</span>
         </label>
         <a href="#" class="muted-link">Olvidaste tu contrasena?</a>
       </div>
 
-      <button class="submit-btn" type="submit">Iniciar sesion</button>
+      <button class="submit-btn" type="submit" [disabled]="loginForm.invalid">Iniciar sesion</button>
+      @if(!this.valido()) {
+        <span style="color: red; font-size: 0.9rem;">Por favor completa el formulario correctamente</span>
+      }
 
       <div class="divider"><span>O continua con</span></div>
 
