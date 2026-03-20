@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { Router, RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,7 @@ export class Login {
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    password: ['', [Validators.required, Validators.minLength(4)]],
   });
 
   onSubmit() {
@@ -36,13 +37,13 @@ export class Login {
     }
 
     const { email, password } = this.loginForm.getRawValue();
-    const valido = this.auth.login(email!, password!);
 
-    if (valido) {
-      this.router.navigate(['/home']);
-    }else this.valido.set(false);
+    this.auth.login(email!, password!).subscribe({
+      next: () => this.router.navigateByUrl('/home'),
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+        console.log(error.status);
+      }
+    });
   }
-
-
-
 }

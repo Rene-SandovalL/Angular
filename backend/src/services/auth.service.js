@@ -2,7 +2,11 @@ const prisma =require('../config/prisma');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const register = async ({name, email, password }) => {
+const register = async ({ name, email, password }) => {
+    if (!name || !email || !password) {
+        throw new Error('Nombre, email y contraseña son requeridos');
+    }
+
     const existeUsuario = await prisma.users.findUnique({
         where : { email }
     });
@@ -15,9 +19,9 @@ const register = async ({name, email, password }) => {
 
     const user = await prisma.users.create({
         data : {
-            NAME: name,
+            name,
             email,
-            PASSWORD: hashedPassword
+            password: hashedPassword
         }
     });
 
@@ -25,22 +29,32 @@ const register = async ({name, email, password }) => {
         message : 'Usuario registrado correctamente',
         user: {
             id : user.id,
-            name : user.NAME,
+            name : user.name,
             email : user.email
         }
     }
 }
 
 const login = async ({ email, password }) => {
+    if (!email || !password) {
+        throw new Error('Email y contraseña son requeridos');
+    }
+
     const user = await prisma.users.findUnique({
-        where : { email }
+        where : { email },
+        select : {
+            id : true,
+            name : true,
+            email : true,
+            password : true
+        }
     });
 
-    if (!user) {
+    if (!user || typeof user.password !== 'string') {
         throw new Error('Email o contraseña inválidos');
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.PASSWORD);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
         throw new Error('Email o contraseña inválidos');
@@ -58,7 +72,12 @@ const login = async ({ email, password }) => {
 
     return{
         message : 'Login successful',
-        token
+        token,
+        user: {
+            id : user.id,
+            name : user.name,
+            email : user.email
+        }
     }
 } 
 
@@ -66,7 +85,7 @@ const getUsers = async () => {
     return await prisma.users.findMany({
         select : {
             id : true,
-            NAME : true,
+            name : true,
             email : true
         }
     });
@@ -78,7 +97,7 @@ const getUserById = async (id) => {
 
         select : {
             id : true,
-            NAME : true,
+            name : true,
             email : true
         }
     });
@@ -90,7 +109,7 @@ const getUserById = async (id) => {
     return user;
 }
 
-const updateUser = async (id, {name, email, password}) => {
+const updateUser = async (id, { name, email, password }) => {
     const user = await prisma.users.findUnique({
         where : { id: Number(id) }
     });
@@ -99,18 +118,25 @@ const updateUser = async (id, {name, email, password}) => {
         throw new Error('Usuario no encontrado');
     }
 
-    const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
+    const data = {
+        ...(name !== undefined ? { name } : {}),
+        ...(email !== undefined ? { email } : {})
+    };
+
+    if (password) {
+        data.password = await bcrypt.hash(password, 10);
+    }
+
+    if (Object.keys(data).length === 0) {
+        throw new Error('No hay datos para actualizar');
+    }
 
     return await prisma.users.update({
         where : { id: Number(id) },
-        data : {
-            NAME : name,
-            email,
-            PASSWORD : hashedPassword
-        },
+        data,
         select : {
             id : true,
-            NAME : true,
+            name : true,
             email : true
         }
     });

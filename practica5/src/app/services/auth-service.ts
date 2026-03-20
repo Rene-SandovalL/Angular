@@ -1,4 +1,7 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { map, Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface SessionUser {
   id: number,
@@ -6,17 +9,22 @@ export interface SessionUser {
   email: string,
 }
 
+interface LoginResponse {
+  token: string;
+  user: SessionUser;
+  message: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private http = inject(HttpClient);
 
-  mockUser : any[] = [
-    {id: 1, name: 'Jose', email: 'admin@upsin.edu.mx', password: 'admin123'},
-    {id: 2, name: 'Maria', email: 'maria@upsin.edu.mx', password: 'maria123'},
-  ]
+
 
     private readonly storageKey = 'session_user';
+    private readonly loginURL = `${environment.apiUrl}/auth/login`;
 
 
   private readonly _currentUser = signal<SessionUser | null>(this.readFromStorage());
@@ -24,25 +32,15 @@ export class AuthService {
   readonly isAuthenticated = computed(() => this._currentUser() !== null);
 
 
-  login(email: string, password: string) : boolean {
-    const existe = this.mockUser.find(
-      u=> u.email.toLowerCase() === email.toLowerCase().trim() &&
-      u.password.toLowerCase() === password.toLowerCase().trim()
-    );
-
-    if(!existe) return false;
-
-    const sessionUser : SessionUser = {
-      id: existe.id,
-      name: existe.name,
-      email: existe.email
+  login(email: string, password: string) : Observable<SessionUser> {
+      return this.http.post<LoginResponse>(this.loginURL, { email, password }).pipe(
+        tap((response) => {
+          localStorage.setItem(this.storageKey, response.token);
+          this._currentUser.set(response.user);
+        }),
+        map((response) => response.user)
+      );
     }
-
-    localStorage.setItem(this.storageKey, JSON.stringify(sessionUser));
-
-    this._currentUser.set(sessionUser);
-    return true;
-  }
 
   readFromStorage(): SessionUser | null {
     const user = localStorage.getItem(this.storageKey);
