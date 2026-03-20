@@ -1,7 +1,7 @@
 services:
   mysql-db:
     image: mysql:8.0
-    container_name: mysql_server
+    container_name: mysql-angular-demons
     restart: always
     environment:
       MYSQL_DATABASE: practica5
