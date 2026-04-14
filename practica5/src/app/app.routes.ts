@@ -29,6 +29,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/calificaciones/calificaciones').then(m => m.Calificaciones)
       },
       {
+        path: 'usuarios',
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/usuarios/usuarios').then(m => m.Usuarios)
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'

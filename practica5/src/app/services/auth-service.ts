@@ -21,10 +21,9 @@ interface LoginResponse {
 export class AuthService {
   private http = inject(HttpClient);
 
-
-
-    private readonly storageKey = 'session_user';
-    private readonly loginURL = `${environment.apiUrl}/auth/login`;
+  private readonly storageKeyUser = 'session_user';
+  private readonly storageKeyToken = 'session_token';
+  private readonly loginURL = `${environment.apiUrl}/auth/login`;
 
 
   private readonly _currentUser = signal<SessionUser | null>(this.readFromStorage());
@@ -35,7 +34,8 @@ export class AuthService {
   login(email: string, password: string) : Observable<SessionUser> {
       return this.http.post<LoginResponse>(this.loginURL, { email, password }).pipe(
         tap((response) => {
-          localStorage.setItem(this.storageKey, response.token);
+          localStorage.setItem(this.storageKeyToken, response.token);
+          localStorage.setItem(this.storageKeyUser, JSON.stringify(response.user));
           this._currentUser.set(response.user);
         }),
         map((response) => response.user)
@@ -43,19 +43,20 @@ export class AuthService {
     }
 
   readFromStorage(): SessionUser | null {
-    const user = localStorage.getItem(this.storageKey);
+    const user = localStorage.getItem(this.storageKeyUser);
     if (!user) return null;
 
     try {
       return JSON.parse(user) as SessionUser;
     }catch {
-      localStorage.removeItem(this.storageKey);
+      localStorage.removeItem(this.storageKeyUser);
       return null;
     }
   }
 
   logout(): void {
     this._currentUser.set(null);
-    localStorage.removeItem(this.storageKey);
+    localStorage.removeItem(this.storageKeyUser);
+    localStorage.removeItem(this.storageKeyToken);
   }
 }
