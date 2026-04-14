@@ -12,3 +12,35 @@ model users {
   email    String @unique(map: "email") @db.VarChar(150)
   password String @db.VarChar(255)
 }
+
+model alumnos {
+  id        Int             @id @default(autoincrement())
+  name      String          @db.VarChar(100)
+  matricula String          @unique(map: "matricula") @db.VarChar(12)
+  carrera   alumnos_carrera
+  semestre  Int
+  correo    String          @db.VarChar(60)
+}
+
+model maestros {
+  id           Int                    @id @default(autoincrement())
+  name         String                 @db.VarChar(100)
+  telefono     String                 @unique(map: "telefono") @db.VarChar(12)
+  email        String                 @unique(map: "email") @db.VarChar(100)
+  departamento maestros_departamento?
+}
+
+enum alumnos_carrera {
+  Tecnologias_de_la_informacion @map("Tecnologias de la informacion")
+  Mecatronica
+  Biotecnologia
+  Energia
+  Animacion_y_efectos_visuales  @map("Animacion y efectos visuales")
+  Terapia_fisica                @map("Terapia fisica")
+}
+
+enum maestros_departamento {
+  programacion
+  base_de_datos @map("base de datos")
+  dise_o        @map("diseño")
+}
