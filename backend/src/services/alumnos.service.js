@@ -26,19 +26,23 @@ const createAlumno = async ({ name, matricula, carrera, semestre, correo }) => {
         throw new Error('Semestre debe ser un numero entero entre 1 y 12');
     }
 
-    try {
-        return await prisma.alumnos.create({
-            data: {
-                name,
-                matricula,
-                carrera,
-                semestre: semestreNumber,
-                correo
-            }
-        });
-    } catch (error) {
-        handleUniqueConstraint(error);
+    const existingAlumno = await prisma.alumnos.findUnique({
+        where: { matricula }
+    });
+
+    if (existingAlumno) {
+        throw new Error('Ya existe un alumno con matricula registrada');
     }
+
+    return await prisma.alumnos.create({
+        data: {
+            name,
+            matricula,
+            carrera,
+            semestre: semestreNumber,
+            correo
+        }
+    });
 };
 
 const getAlumnos = async () => {

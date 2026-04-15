@@ -9,7 +9,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Alumno, AlumnoCarrera, AlumnosService } from '../../services/alumnos-service';
+import {
+  Alumno,
+  AlumnoCarrera,
+  AlumnosService,
+  AlumnoResumenIaResponse,
+} from '../../services/alumnos-service';
 
 interface AlumnoRow {
   id: number;
@@ -77,6 +82,9 @@ export class Alumnos implements OnInit {
   });
 
   editingAlumnoId: number | null = null;
+  resumenIa: AlumnoResumenIaResponse | null = null;
+  resumenIaAlumnoId: number | null = null;
+  resumenIaError = '';
 
   ngOnInit(): void {
     this.loadAlumnos();
@@ -139,6 +147,30 @@ export class Alumnos implements OnInit {
         if (this.editingAlumnoId === alumno.id) {
           this.resetForm();
         }
+        if (this.resumenIa?.alumno.id === alumno.id) {
+          this.resumenIa = null;
+          this.resumenIaError = '';
+          this.resumenIaAlumnoId = null;
+        }
+        this.cdr.markForCheck();
+      },
+    });
+  }
+
+  generateSummary(alumno: AlumnoRow): void {
+    this.resumenIaAlumnoId = alumno.id;
+    this.resumenIaError = '';
+
+    this.alumnosService.generarResumenAlumno(alumno.id).subscribe({
+      next: (response) => {
+        this.resumenIa = response;
+        this.resumenIaAlumnoId = null;
+        this.cdr.markForCheck();
+      },
+      error: (error) => {
+        this.resumenIa = null;
+        this.resumenIaAlumnoId = null;
+        this.resumenIaError = error?.error?.message || 'No se pudo generar el resumen.';
         this.cdr.markForCheck();
       },
     });

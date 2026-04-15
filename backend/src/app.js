@@ -6,6 +6,7 @@ const authRoutes = require("./routes/auth.route");
 const usersRoutes = require("./routes/users.route");
 const alumnosRoutes = require("./routes/alumnos.route");
 const maestrosRoutes = require("./routes/maestros.route");
+const iaRoutes = require("./routes/ia.route");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use("/auth", authRoutes);
 app.use("/api", usersRoutes);
 app.use("/api", alumnosRoutes);
 app.use("/api", maestrosRoutes);
+app.use("/api", iaRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

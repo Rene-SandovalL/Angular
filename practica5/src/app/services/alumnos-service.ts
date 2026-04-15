@@ -36,12 +36,19 @@ export interface AlumnoUpdatePayload {
   correo?: string;
 }
 
+export interface AlumnoResumenIaResponse {
+  alumno: Alumno;
+  resumen: string;
+  fechaGeneracion: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AlumnosService {
   private http = inject(HttpClient);
   private readonly alumnosUrl = `${environment.apiUrl}/api/alumnos`;
+  private readonly iaResumenUrl = `${environment.apiUrl}/api/ia/resumen`;
 
   getAlumnos(): Observable<Alumno[]> {
     return this.http.get<Alumno[]>(this.alumnosUrl);
@@ -57,5 +64,9 @@ export class AlumnosService {
 
   deleteAlumno(id: number): Observable<void> {
     return this.http.delete<void>(`${this.alumnosUrl}/${id}`);
+  }
+
+  generarResumenAlumno(id: number): Observable<AlumnoResumenIaResponse> {
+    return this.http.get<AlumnoResumenIaResponse>(`${this.iaResumenUrl}/${id}`);
   }
 }

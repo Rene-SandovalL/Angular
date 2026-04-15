@@ -114,6 +114,16 @@
 					<ng-container matColumnDef="actions">
 						<th mat-header-cell *matHeaderCellDef>Acciones</th>
 						<td mat-cell *matCellDef="let element" class="actions-cell">
+							<button
+								class="action-btn ia-btn"
+								mat-icon-button
+								type="button"
+								matTooltip="Generar resumen con IA"
+								(click)="generateSummary(element)"
+								[disabled]="resumenIaAlumnoId === element.id"
+							>
+								<mat-icon>{{ resumenIaAlumnoId === element.id ? 'hourglass_top' : 'auto_awesome' }}</mat-icon>
+							</button>
 							<button mat-icon-button type="button" matTooltip="Editar" (click)="edit(element)">
 								<mat-icon>edit</mat-icon>
 							</button>
@@ -133,6 +143,19 @@
 					</div>
 				}
 			</div>
+
+			@if (resumenIa) {
+				<div class="summary-box">
+					<h3>Resumen IA de {{ resumenIa.alumno.name }}</h3>
+					<pre>{{ resumenIa.resumen }}</pre>
+				</div>
+			}
+
+			@if (resumenIaError) {
+				<div class="summary-error">
+					{{ resumenIaError }}
+				</div>
+			}
 		</mat-card>
 	</div>
 </div>
