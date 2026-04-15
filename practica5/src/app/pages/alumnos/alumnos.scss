@@ -130,7 +130,8 @@ mat-form-field {
 .table-wrap {
 	border-radius: 18px;
 	border: 1px solid var(--stroke);
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	background: #fffaf6;
 	max-height: 620px;
 }
@@ -141,7 +142,7 @@ mat-form-field {
 
 .alumnos-table {
 	width: 100%;
-	min-width: 980px;
+	table-layout: fixed;
 	background: transparent;
 }
 
@@ -153,8 +154,8 @@ mat-form-field {
 }
 
 .alumnos-table .mat-column-actions {
-	width: 170px;
-	min-width: 170px;
+	width: 150px;
+	min-width: 150px;
 	text-align: center;
 	position: sticky;
 	right: 0;
@@ -185,10 +186,10 @@ mat-form-field {
 }
 
 .actions-cell .ia-btn {
-	border: 1px solid rgba(86, 87, 246, 0.25);
-	background: rgba(86, 87, 246, 0.08);
-	color: #3f44c9;
-	border-radius: 10px;
+	border: none;
+	background: transparent;
+	color: inherit;
+	border-radius: 0;
 }
 
 .summary-box {

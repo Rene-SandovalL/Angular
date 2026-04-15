@@ -71,9 +71,41 @@ const generarResumenAlumno = async (alumnoId) => {
         .replace(/{correo}/g, alumno.correo)
         .replace(/{fecha_actual}/g, fechaActual);
 
-    const model = getGenAI().getGenerativeModel({ model: 'gemini-1.5-flash' });
-    const result = await model.generateContent(prompt);
-    const resumen = result.response.text();
+    let resumen = '';
+    let lastError = null;
+    const modelErrors = [];
+
+    const modelNames = [...new Set([
+        process.env.GEMINI_MODEL,
+        'gemini-3-flash-preview'
+    ].filter(Boolean))];
+
+    for (const modelName of modelNames) {
+        try {
+            const model = getGenAI().getGenerativeModel({ model: modelName });
+            const result = await model.generateContent(prompt);
+            resumen = result.response.text();
+            if (resumen) {
+                break;
+            }
+        } catch (error) {
+            lastError = error;
+            modelErrors.push({
+                model: modelName,
+                message: error?.message || 'Error desconocido'
+            });
+        }
+    }
+
+    if (!resumen) {
+        const quotaError = modelErrors.find((item) => /429|quota exceeded/i.test(item.message));
+        if (quotaError) {
+            throw new Error(`GEMINI_QUOTA_EXCEEDED: ${quotaError.message}`);
+        }
+
+        const cause = lastError?.message || 'Error desconocido al invocar Gemini';
+        throw new Error(`GEMINI_REQUEST_ERROR: ${cause}`);
+    }
 
     return {
         alumno: {

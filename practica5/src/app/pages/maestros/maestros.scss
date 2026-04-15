@@ -130,7 +130,8 @@ mat-form-field {
 .table-wrap {
 	border-radius: 18px;
 	border: 1px solid var(--stroke);
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	background: #fffaf6;
 }
 
@@ -140,13 +141,20 @@ mat-form-field {
 
 .maestros-table {
 	width: 100%;
-	min-width: 900px;
+	table-layout: fixed;
 	background: transparent;
 }
 
+.maestros-table td,
+.maestros-table th {
+	white-space: normal;
+	word-break: break-word;
+	text-overflow: initial;
+}
+
 .maestros-table .mat-column-actions {
-	width: 120px;
-	min-width: 120px;
+	width: 130px;
+	min-width: 130px;
 	text-align: center;
 	position: sticky;
 	right: 0;
