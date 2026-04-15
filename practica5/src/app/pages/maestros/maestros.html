@@ -1,1 +1,123 @@
-<h1>maestros works!</h1>
+<div class="page">
+	<header class="hero">
+		<div>
+			<span class="eyebrow">Maestros</span>
+			<h1>Control de maestros</h1>
+		</div>
+		<div class="hero-card">
+			<span>Total</span>
+			<strong>{{ maestros.length }}</strong>
+			<small>registros activos</small>
+		</div>
+	</header>
+
+	<div class="grid">
+		<mat-card class="panel form-panel">
+			<div class="panel-header">
+				<h2>{{ isEditing ? 'Actualizar maestro' : 'Agregar maestro' }}</h2>
+				<span class="panel-caption">Formulario de nombre, telefono, correo y departamento.</span>
+			</div>
+
+			<form class="form" [formGroup]="form" (ngSubmit)="submit()">
+				<div class="fields">
+					<mat-form-field appearance="outline">
+						<mat-label>Nombre</mat-label>
+						<input matInput formControlName="name" placeholder="Ej. Jose Vargas" />
+						@if (form.controls.name.touched && form.controls.name.invalid) {
+							<mat-error>Ingresa un nombre valido.</mat-error>
+						}
+					</mat-form-field>
+
+					<mat-form-field appearance="outline">
+						<mat-label>Telefono</mat-label>
+						<input matInput formControlName="telefono" placeholder="Ej. 5512345678" />
+						@if (form.controls.telefono.touched && form.controls.telefono.invalid) {
+							<mat-error>Ingresa un telefono valido de hasta 12 caracteres.</mat-error>
+						}
+					</mat-form-field>
+
+					<mat-form-field appearance="outline">
+						<mat-label>Correo</mat-label>
+						<input matInput formControlName="email" placeholder="maestro@correo.com" />
+						@if (form.controls.email.touched && form.controls.email.invalid) {
+							<mat-error>Ingresa un correo valido.</mat-error>
+						}
+					</mat-form-field>
+
+					<mat-form-field appearance="outline">
+						<mat-label>Departamento</mat-label>
+						<mat-select formControlName="departamento">
+							<mat-option value="">Sin departamento</mat-option>
+							@for (departamento of departamentos; track departamento) {
+								<mat-option [value]="departamento">{{ departamentoLabel(departamento) }}</mat-option>
+							}
+						</mat-select>
+					</mat-form-field>
+				</div>
+
+				<div class="actions">
+					<button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+						{{ isEditing ? 'Actualizar' : 'Agregar' }}
+					</button>
+					<button mat-stroked-button type="button" (click)="resetForm()">
+						Limpiar
+					</button>
+				</div>
+			</form>
+		</mat-card>
+
+		<mat-card class="panel table-panel">
+			<div class="panel-header table-header">
+				<div>
+					<h2>Lista de maestros</h2>
+					<span class="panel-caption">Acciones rapidas para editar o borrar.</span>
+				</div>
+			</div>
+
+			<div class="table-wrap" [class.is-empty]="maestros.length === 0">
+				<table mat-table [dataSource]="maestros" class="maestros-table">
+					<ng-container matColumnDef="name">
+						<th mat-header-cell *matHeaderCellDef>Nombre</th>
+						<td mat-cell *matCellDef="let element">{{ element.name }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="telefono">
+						<th mat-header-cell *matHeaderCellDef>Telefono</th>
+						<td mat-cell *matCellDef="let element">{{ element.telefono }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="email">
+						<th mat-header-cell *matHeaderCellDef>Correo</th>
+						<td mat-cell *matCellDef="let element">{{ element.email }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="departamento">
+						<th mat-header-cell *matHeaderCellDef>Departamento</th>
+						<td mat-cell *matCellDef="let element">{{ departamentoLabel(element.departamento) }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="actions">
+						<th mat-header-cell *matHeaderCellDef>Acciones</th>
+						<td mat-cell *matCellDef="let element" class="actions-cell">
+							<button mat-icon-button type="button" matTooltip="Editar" (click)="edit(element)">
+								<mat-icon>edit</mat-icon>
+							</button>
+							<button mat-icon-button type="button" color="warn" matTooltip="Borrar" (click)="remove(element)">
+								<mat-icon>delete</mat-icon>
+							</button>
+						</td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns; trackBy: trackById"></tr>
+				</table>
+
+				@if (maestros.length === 0) {
+					<div class="empty-state">
+						Sin maestros por ahora. Crea el primero desde el formulario.
+					</div>
+				}
+			</div>
+		</mat-card>
+	</div>
+</div>
